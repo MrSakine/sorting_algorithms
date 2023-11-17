@@ -18,3 +18,7 @@ Sort an array of integers in ascending order using the [Selection sort](https://
 ### Quick sort
 Sort an array of integers in ascending order using the [Quick sort](https://intranet.alxswe.com/rltoken/_pBTrH0Xyo4BRmQn4CtnMg) algorithm
 - Files: `3-quick_sort.c` and `3-O`
+
+### Shell sort - Knuth Sequence
+Sort an array of integers in ascending order using the [Shell sort](https://intranet.alxswe.com/rltoken/FdpP4Qin3iDAaz1kuPD2Kg) algorithm, using the Knuth sequence
+- Files: `100-shell_sort.c`

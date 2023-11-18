@@ -6,3 +6,6 @@ bubble
 select
 shell
 heap
+merge
+*.vscode
+radix

@@ -98,10 +98,10 @@ void top_down_merge(
 	size_t k;
 
 	printf("Merging...\n[left]: ");
-	print_array(sorted_data + start, middle - start);
+	print_array(source + start, middle - start);
 
 	printf("[right]: ");
-	print_array(sorted_data + middle, end - middle);
+	print_array(source + middle, end - middle);
 
 	for (k = start; k < end; k++)
 	{

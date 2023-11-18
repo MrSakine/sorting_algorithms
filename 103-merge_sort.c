@@ -6,8 +6,6 @@ void top_down_split_merge(
 		int *sorted_data, int *source, size_t start, size_t end);
 void top_down_merge(
 		int *sorted_data, int *source, size_t start, size_t middle, size_t end);
-void merge_sort_recursive(int *sorted_data, int *source,
-													size_t start, size_t end);
 /**
  * merge_sort - sorts an array of integers in
  * ascending order using the Merge sort algorithm
@@ -119,26 +117,4 @@ void top_down_merge(
 
 	printf("[Done]: ");
 	print_array(sorted_data + start, end - start);
-}
-
-/**
- * merge_sort_recursive - Run top-down merge algorithm.
- * @sorted_data: the array to be used.
- * @source: pointer to the new source (copy).
- * @start: Starting point.
- * @end: ending point.
- * Return: Nothing (void).
-*/
-void merge_sort_recursive(int *sorted_data, int *source,
-													size_t start, size_t end)
-{
-	size_t middle;
-
-	if (end - start > 1)
-	{
-		middle = start + (end - start) / 2;
-		merge_sort_recursive(sorted_data, source, start, middle);
-		merge_sort_recursive(sorted_data, source, middle, end);
-		top_down_merge(sorted_data, source, start, middle, end);
-	}
 }

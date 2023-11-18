@@ -9,3 +9,5 @@ heap
 merge
 *.vscode
 radix
+bitonic
+*.out

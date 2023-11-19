@@ -50,3 +50,7 @@ Sort an array of integers in ascending order using the [Bitonic sort](https://in
 ### Quick Sort - Hoare Partition scheme
 Sort an array of integers in ascending order using the [Quick sort](https://intranet.alxswe.com/rltoken/_pBTrH0Xyo4BRmQn4CtnMg) algorithm
 - Files: `107-quick_sort_hoare.c` and `107-O`
+
+### Dealer
+A function that sorts a deck of cards
+- Files: `1000-sort_deck.c`, `deck.h`

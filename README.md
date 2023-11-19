@@ -46,3 +46,7 @@ Sort an array of integers in ascending order using the [Radix sort](https://intr
 ### Bitonic sort
 Sort an array of integers in ascending order using the [Bitonic sort](https://intranet.alxswe.com/rltoken/N-bjAbxm5yr4DoeIDz5lLw) algorithm.
 - Files: `106-bitonic_sort.c` and `106-O`
+
+### Quick Sort - Hoare Partition scheme
+Sort an array of integers in ascending order using the [Quick sort](https://intranet.alxswe.com/rltoken/_pBTrH0Xyo4BRmQn4CtnMg) algorithm
+- Files: `107-quick_sort_hoare.c` and `107-O`

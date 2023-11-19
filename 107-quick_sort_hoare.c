@@ -1,7 +1,7 @@
 #include "sort.h"
 
 void quick_sort_recursion(int *array, size_t size, size_t start, size_t end);
-size_t quick_sort_partition(int *array, size_t start, size_t end);
+int quick_sort_partition(int *array, size_t size, size_t start, size_t end);
 void swap_quick_sort(int *current, int *next);
 
 /**
@@ -32,48 +32,45 @@ void quick_sort_recursion(int *array, size_t size, size_t start, size_t end)
 {
 	size_t pivot;
 
-	if (start < end)
+	if (start - end > 0)
 	{
-		pivot = quick_sort_partition(array, start, end);
-		quick_sort_recursion(array, size, start, pivot);
-		quick_sort_recursion(array, size, pivot + 1, end);
-		print_array(array, size);
+		pivot = quick_sort_partition(array, size, end, start);
+		quick_sort_recursion(array, size, start, pivot - 1);
+		quick_sort_recursion(array, size, pivot, end);
 	}
 }
 
 /**
  * quick_sort_partition - look for a pivot from the array
  * @array: The array to be used
+ * @size: size of the array.
  * @start: start index of the array
  * @end: end index of the array
  *
  * Return: Nothing (void)
  */
-size_t quick_sort_partition(int *array, size_t start, size_t end)
+int quick_sort_partition(int *array, size_t size, size_t start, size_t end)
 {
-	int pivot;
-	size_t i;
-	size_t j;
+	int pivot, above, below;
 
-	pivot = array[((end - start) / 2) + start];
-	i = start - 1;
-	j = end + 1;
-
-	while (1)
+	pivot = array[start];
+	for (above = end - 1, below = start + 1; above < below;)
 	{
-		do
-			i++;
-		while (array[i] < pivot);
+		do {
+			above++;
+		} while (array[above] < pivot);
+		do {
+			below--;
+		} while (array[below] > pivot);
 
-		do
-			j--;
-		while (array[j] > pivot);
-
-		if (i >= j)
-			return (j);
-
-		swap_quick_sort(&array[i], &array[j]);
+		if (above < below)
+		{
+			swap_quick_sort(array + above, array + below);
+			print_array(array, size);
+		}
 	}
+
+	return (above);
 }
 
 /**

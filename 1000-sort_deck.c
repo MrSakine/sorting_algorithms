@@ -4,6 +4,43 @@
 #include "deck.h"
 
 /**
+ * get_value - get a card value
+ * @card: pointer to a card_t node
+ * Return: the value of the card.
+ */
+int get_value(const card_t *card)
+{
+	value_mapping value_mappings[] = {
+			{"Ace", 0},
+			{"1", 1},
+			{"2", 2},
+			{"3", 3},
+			{"4", 4},
+			{"5", 5},
+			{"6", 6},
+			{"7", 7},
+			{"8", 8},
+			{"9", 9},
+			{"10", 10},
+			{"Jack", 11},
+			{"Queen", 12},
+			{"King", 13},
+	};
+
+	size_t i;
+
+	for (i = 0; i < sizeof(value_mappings) / sizeof(value_mappings[0]); i++)
+	{
+		if (strcmp(card->value, value_mappings[i].value) == 0)
+		{
+			return (value_mappings[i].numeric_value);
+		}
+	}
+
+	return (13);
+}
+
+/**
  * compare_cards - This function is used as a comparator
  * for the qsort function. It compares two cards to
  * determine their order in the sorted array.
@@ -13,47 +50,32 @@
  * or greater than zero if the first card
  * is considered to be respectively less than,
  * equal to, or greater than the second card.
-*/
+ */
 int compare_cards(const void *a, const void *b)
 {
-	const card_t *card1 = ((deck_node_t *)a)->card;
-	const card_t *card2 = ((deck_node_t *)b)->card;
-	int value1, value2;
+	const card_t *card_a = (*(const deck_node_t **)a)->card;
+	const card_t *card_b = (*(const deck_node_t **)b)->card;
+	int kind_diff, value_diff;
 
-	if (strcmp(card1->value, "Ace") == 0)
-		value1 = 1;
-	else if (strcmp(card1->value, "Jack") == 0)
-		value1 = 11;
-	else if (strcmp(card1->value, "Queen") == 0)
-		value1 = 12;
-	else if (strcmp(card1->value, "King") == 0)
-		value1 = 13;
+	kind_diff = (card_a->kind - card_b->kind);
+
+	if (kind_diff != 0)
+	{
+		return (kind_diff);
+	}
 	else
-		value1 = atoi(card1->value);
-
-	if (strcmp(card2->value, "Ace") == 0)
-		value2 = 1;
-	else if (strcmp(card2->value, "Jack") == 0)
-		value2 = 11;
-	else if (strcmp(card2->value, "Queen") == 0)
-		value2 = 12;
-	else if (strcmp(card2->value, "King") == 0)
-		value2 = 13;
-	else
-		value2 = atoi(card2->value);
-
-	if (value1 != value2)
-		return (value1 - value2);
-
-	return (card1->kind - card2->kind);
+	{
+		value_diff = (get_value(card_a) - get_value(card_b));
+		return (value_diff);
+	}
 }
 
 /**
-* sort_deck - This function sorts a doubly-linked
-* list of cards (deck) using the qsort algorithm.
-* @deck: pointer to the head of the doubly-linked list.
-* Return: Nothing.
-*/
+ * sort_deck - This function sorts a doubly-linked
+ * list of cards (deck) using the qsort algorithm.
+ * @deck: pointer to the head of the doubly-linked list.
+ * Return: Nothing.
+ */
 void sort_deck(deck_node_t **deck)
 {
 	size_t size = 0, i;
@@ -81,13 +103,14 @@ void sort_deck(deck_node_t **deck)
 
 	qsort(deck_array, size, sizeof(deck_node_t *), compare_cards);
 
-	for (i = 0; i < size; ++i)
+	for (i = 0; i < size - 1; i++)
 	{
-		deck_array[i]->prev = (i > 0) ? deck_array[i - 1] : NULL;
-		deck_array[i]->next = (i < size - 1) ? deck_array[i + 1] : NULL;
+		deck_array[i]->next = deck_array[i + 1];
+		deck_array[i + 1]->prev = deck_array[i];
 	}
 
 	*deck = deck_array[0];
-
+	(*deck)->prev = NULL;
+	deck_array[size - 1]->next = NULL;
 	free(deck_array);
 }

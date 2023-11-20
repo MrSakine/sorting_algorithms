@@ -6,7 +6,7 @@
  * @HEART: heart.
  * @CLUB: club.
  * @DIAMOND: diamond.
-*/
+ */
 typedef enum kind_e
 {
 	SPADE = 0,
@@ -42,5 +42,19 @@ typedef struct deck_node_s
 	struct deck_node_s *next;
 } deck_node_t;
 
+/**
+ * struct value_mapping_s - A map of the char and int value of a card
+ *
+ * @value: Pointer to the value of a card
+ * @numeric_value: The integer representation of @value
+ */
+typedef struct value_mapping_s
+{
+	const char *value;
+	int numeric_value;
+} value_mapping;
+
 void sort_deck(deck_node_t **deck);
+int get_value(const card_t *card);
+
 #endif
